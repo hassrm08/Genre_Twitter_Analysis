@@ -1,0 +1,83 @@
+---
+title: "DS 710 Final Project"
+author: "Ryan Hass"
+date: "12/14/2020"
+output:
+  word_document: default
+  pdf_document: default
+---
+
+```{r}
+# Read in libraries
+
+library(readr)
+library(dplyr)
+library(ggformula)
+```
+```{r}
+# Read in .csv file(s)
+
+summary_data <- read_csv("finalprojectsummarydata.csv")
+raw_data <- read_csv("finalprojectrawdata.csv")
+
+head(summary_data)
+head(raw_data)
+```
+```{r}
+# Tweet Count Graph
+
+gf_col(summary_data$`Tweet Count` ~ summary_data$X1, col =~ summary_data$X1, show.legend = FALSE) %>%
+  gf_label(label = ~summary_data$`Tweet Count`, show.legend = FALSE) %>%
+  gf_labs(title = "Tweet Count by Genre",
+          x = "Genre",
+          y = "Count",
+          show.legend = FALSE)
+```
+```{r}
+# Exclamation Count Graph
+
+gf_col(summary_data$`Exclamation Count` ~ summary_data$X1, col =~ summary_data$X1, show.legend = FALSE) %>%
+  gf_label(label = ~summary_data$`Exclamation Count`, show.legend = FALSE) %>%
+  gf_labs(title = "Exclamation Count by Genre",
+          x = "Genre",
+          y = "Count",
+          show.legend = FALSE)
+```
+```{r}
+# Hypothesis Testing
+
+# Ho: There is no relationship between the Tweet Count and Exclamation Count per Genre.
+
+# Ha: There is relationship between the Tweet Count and Exclamation Count per Genre.
+```
+
+```{r}
+# Scatterplot of Tweet Count and Exclamation Count
+
+gf_point(summary_data$`Exclamation Count` ~ summary_data$`Tweet Count`, col =~ summary_data$X1 , show.legend = TRUE) %>%
+  gf_lm(summary_data$`Exclamation Count` ~ summary_data$`Tweet Count`, col = 'red') %>%
+  gf_labs(title = "Exclamation Count by Tweet Count",
+          x = "Tweet Count",
+          y = "Exclamation Count",
+          color = "Genre",
+          show.legend = FALSE)
+
+glm(summary_data$`Exclamation Count` ~ summary_data$`Tweet Count`)
+
+summary(lm(summary_data$`Exclamation Count` ~ summary_data$`Tweet Count`))
+
+```
+
+```{r}
+# Chi Squared Test of Independence
+
+chisq.test(summary_data$`Tweet Count`, summary_data$`Exclamation Count`)
+
+```
+
+```{r}
+# Conclusion
+
+# Based on the p-values of both the linear model and chi-squared test, we fail to reject the null hypothesis indicating that there is no relationship between the Tweet Count and Exclamation Count.
+```
+

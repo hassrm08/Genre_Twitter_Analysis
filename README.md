@@ -1,6 +1,6 @@
 # Genre_Twitter_Analysis
 
-The final porject for DS 710 - Programming for Data Science included an open ended analysis fo Twitter data using the Twitter API.
+The final project for DS 710 - Programming for Data Science included an open ended analysis fo Twitter data using the Twitter API.
 
 I chose to evaluate the popularity of musical genres based on their perceived popularity on Twitter.  Popularity is determined in two ways. First, by overall tweet count then by the number of exclamation marks used within those tweets.
 
